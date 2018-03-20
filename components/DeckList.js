@@ -32,23 +32,20 @@ class DeckList extends React.Component{
   ],
   }
 
-  // componentDidMount(){
-  //   console.log("right before dispatching")
-  //   debugger
-  //   this.props.boundReceiveDecks()
-  // }
+  componentDidMount(){
+    debugger
+    this.props.boundReceiveDecks()
+  }
 
   render(){
     return(
       <View>
-        {this.state.list.map((card)=>{
-          <View>
-            <Text>{card.title}</Text>
-            <Text>{card.questions.length}</Text>
-          </View>
+        {this.state.list.map((deck)=>{
+          return (<View key={deck.title}>
+                  <Text>{deck.title}</Text>
+                  <Text>{deck.questions.length}</Text>
+                </View>)
         })}
-        <Text>{this.state.list[0].title}</Text>
-        <Text>{this.state.list[0].questions.length} cards</Text>
       </View>
   )
   }

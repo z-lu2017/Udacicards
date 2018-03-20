@@ -1,16 +1,16 @@
 import { AsyncStorage } from 'react-native';
 
 //get all decks
-export function getDecks(){
-  var decks = {}
+export function getDecks(func){
+  var returnDecks = []
+  console.log("before 1 async")
   AsyncStorage.getAllKeys((err, keys) =>{
-    console.log("did i get keys?", keys)
     AsyncStorage.multiGet(keys, (err, decks) => {
-      decks.map
+      returnDecks = decks
+      console.log("what is return", returnDecks)
+      func(returnDecks)
+      })
     })
-  })
-  console.log("what are decks in getDecks", decks)
-  return decks
 }
 
 //get a single deck

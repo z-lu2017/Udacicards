@@ -1,16 +1,16 @@
 import { RECEIVE_DECKS, UPDATE_DECK } from '../actions'
 import { getDecks } from '../api'
 
-function decks(state = {}, action){
+function decks(state = [], action){
   switch(action.type){
     case RECEIVE_DECKS:
       console.log("inside reducers before api call")
-      decks = getDecks()
-      console.log("after api call")
-      return {
-        ...state,
-        ...decks,
-      }
+      decks = getDecks((newDecks)=>{
+        console.log("did i get it?", newDecks)
+        const returnState = state.concat(decks)
+        return state
+      })
+
     case UPDATE_DECK:
       var returnDeck = state
       for (var key in returnDeck){
