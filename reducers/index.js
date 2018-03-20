@@ -5,9 +5,9 @@ function decks(state = [], action){
   switch(action.type){
     case RECEIVE_DECKS:
       console.log("inside reducers before api call")
-      decks = getDecks((newDecks)=>{
+      getDecks((newDecks)=>{
         console.log("did i get it?", newDecks)
-        const returnState = state.concat(decks)
+        const returnState = state.concat(newDecks)
         return state
       })
 
