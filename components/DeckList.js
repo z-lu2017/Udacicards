@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { getDecks } from '../api';
 import { connect } from 'react-redux';
-import { receiveDecks } from '../actions';
+import { fetchDecks } from '../actions';
 
 class DeckList extends React.Component{
   state={
@@ -34,7 +33,7 @@ class DeckList extends React.Component{
 
   componentDidMount(){
     debugger
-    this.props.boundReceiveDecks()
+    this.props.boundFetchDecks()
   }
 
   render(){
@@ -59,7 +58,7 @@ function mapStateToProps(decks){
 
 function mapDispatchToProps(dispatch){
   return {
-    boundReceiveDecks: ()=>{dispatch(receiveDecks())}
+    boundFetchDecks: ()=>{dispatch(fetchDecks())}
   }
 }
 
