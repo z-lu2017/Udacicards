@@ -1,4 +1,4 @@
-import { RECEIVE_DECKS, UPDATE_DECK, FETCH_DECKS, FETCH_DECKS_REQUEST } from '../actions'
+import { RECEIVE_DECKS, UPDATE_DECK, FETCH_DECKS, FETCH_DECKS_REQUEST, NEW_DECK } from '../actions'
 
 
 function decks(state = [], action){
@@ -21,6 +21,18 @@ function decks(state = [], action){
         }
       }
       return returnDeck
+
+    case NEW_DECK:
+      const title = action.title
+      var stateCopy2 = state
+      stateCopy2.push({
+        title: {
+          title: title,
+          questions: []
+        }
+      })
+      return stateCopy2
+
     default:
       return state
   }

@@ -2,11 +2,12 @@ import { AsyncStorage } from 'react-native';
 
 //get all decks
 export function getDecks(){
+  var returnDecks = []
   console.log("before 1 async")
-  AsyncStorage.getAllKeys().then((keys)=>{
-    console.log("after get all keys")
+  AsyncStorage.getAllKeys((err, keys) =>{
+    console.log("after all keys get", keys)
     AsyncStorage.multiGet(keys)
-  })
+    })
 }
 
 //get a single deck
@@ -21,7 +22,7 @@ export function getDeck(id){
 
 //save deck title
 export function saveDeckTitle(title){
-  return AsyncStorage.mergeItem(title, JSON.stringify({
+  AsyncStorage.mergeItem(title, JSON.stringify({
     title: title,
     questions: []
   }))

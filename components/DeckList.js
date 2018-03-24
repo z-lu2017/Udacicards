@@ -32,19 +32,21 @@ class DeckList extends React.Component{
   }
 
   componentDidMount(){
-    debugger
-    this.props.boundFetchDecks()
+    // debugger
+    // this.props.boundFetchDecks()
   }
 
   render(){
     return(
       <View>
-        {this.state.list.map((deck)=>{
-          return (<View key={deck.title}>
-                  <Text>{deck.title}</Text>
-                  <Text>{deck.questions.length}</Text>
-                </View>)
-        })}
+        <View>
+          {this.state.list.map((deck)=>{
+            return (<View key={deck.title}>
+                    <Text>{deck.title}</Text>
+                    <Text>{deck.questions.length}</Text>
+                  </View>)
+          })}
+        </View>
       </View>
   )
   }
