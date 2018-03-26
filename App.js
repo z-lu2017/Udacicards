@@ -9,11 +9,14 @@ import reducer from './reducers';
 import { TabNavigator } from 'react-navigation';
 
 const Tabs = TabNavigator({
-  deckList: {
-    screen: DeckList
-  },
   newDeck: {
-    screen: NewDeck
+    screen: NewDeck,
+    navigationOptions:{
+      title: 'New Deck',
+    }
+  },
+  deckList: {
+    screen: DeckList,
   },
 });
 

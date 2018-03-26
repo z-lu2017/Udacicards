@@ -5,6 +5,7 @@ export const RECEIVE_DECKS = 'RECEIVE_DECKS'
 export const FETCH_DECKS = 'FETCH_DECKS'
 export const UPDATE_DECK = 'UPDATE_DECK'
 export const NEW_DECK = 'NEW_DECK'
+export const SUBMIT = 'SUBMIT'
 
 function receiveDecks(decks){
   return {
@@ -40,5 +41,11 @@ export function updateDeck(title, card){
     type: UPDATE_DECK,
     card,
     title,
+  }
+}
+
+export function submitDeck(){
+  return {
+    type: SUBMIT
   }
 }

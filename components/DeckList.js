@@ -32,7 +32,8 @@ class DeckList extends React.Component{
   }
 
   componentDidMount(){
-    this.props.boundFetchDecks()
+    console.log("this.props", this.props)
+    // this.props.boundFetchDecks()
   }
 
   render(){

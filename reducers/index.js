@@ -1,4 +1,5 @@
-import { RECEIVE_DECKS, UPDATE_DECK, FETCH_DECKS, FETCH_DECKS_REQUEST, NEW_DECK } from '../actions'
+import { RECEIVE_DECKS, UPDATE_DECK, FETCH_DECKS, FETCH_DECKS_REQUEST, NEW_DECK, SUBMIT } from '../actions';
+import { combineReducers } from 'redux';
 
 
 function decks(state = [], action){
@@ -38,4 +39,16 @@ function decks(state = [], action){
   }
 }
 
-export default decks
+function isSubmitted(state = {submitted: false}, action){
+  switch(action.type){
+    case SUBMIT:
+      return {submitted: true}
+    default:
+      return state
+  }
+}
+
+export default combineReducers({
+  decks,
+  isSubmitted
+});
