@@ -9,10 +9,10 @@ class NewDeck extends React.Component{
     title: '',
   }
 
-  submit(){
+  submit = () => {
     console.log("what is title", this)
-    // saveDeckTitle(this.state.title)
-    this.props.boundNewDeck()
+    saveDeckTitle(this.state.title)
+    this.props.boundNewDeck(this.state.title)
   }
 
   render(){
@@ -22,7 +22,7 @@ class NewDeck extends React.Component{
         <View>
           <Text>Please enter your deck name:</Text>
           <TextInput editable={true} onChangeText={ (text) => {that.setState({title: text})}} placeholder='Enter Title Name here'/>
-          <TouchableOpacity onPress={that.submit}><Text>Submit</Text></TouchableOpacity>
+          <TouchableOpacity onPress={()=>{that.submit()}}><Text>Submit</Text></TouchableOpacity>
         </View>
       </View>
   )
@@ -37,7 +37,7 @@ function mapStateToProps(decks){
 
 function mapDispatchToProps(dispatch){
   return {
-    boundNewDeck: ()=>{dispatch(newDeck())}
+    boundNewDeck: (title)=>{dispatch(newDeck(title))}
   }
 }
 

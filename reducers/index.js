@@ -5,9 +5,9 @@ function decks(state = [], action){
   switch(action.type){
     case RECEIVE_DECKS:
       const decks = action.decks
+      console.log("inside reducers receiveDecks, did i get it", decks)
       const stateCopy = state
       const returnDecks = stateCopy.concat(decks)
-      console.log("inside reducers")
       return returnDecks
 
     case FETCH_DECKS_REQUEST:
