@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import { TabNavigator } from 'react-navigation';
+import Reactotron, { asyncStorage } from 'reactotron-react-native'
 
 const Tabs = TabNavigator({
   newDeck: {
@@ -16,7 +17,7 @@ const Tabs = TabNavigator({
     }
   },
   deckList: {
-    screen: DeckList,
+    screen: DeckList
   },
 });
 

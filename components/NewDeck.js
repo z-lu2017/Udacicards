@@ -1,34 +1,49 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-import { saveDeckTitle } from '../api';
-import { newDeck, submitDeck } from '../actions';
+import { saveDeckTitle, addCardToDeck, getDeck } from '../api';
+import { newDeck } from '../actions';
 
 class NewDeck extends React.Component{
   state = {
     title: ''
   }
 
-  // static navigationOptions = ({navigation}) => {
-  //   console.log("navigation what ", navigation)
-  //   return {
-  //             tabBarVisible: (this.props.navigation.state.isVisible) ? true : false
-  //
-  //   };
-  // };
-
   componentDidMount(){
-    var isSubmitted = this.props.decks.isSubmitted
-    this.props.navigation.setParams({
-      isVisible: isSubmitted
-    });
-    console.log("what is props," , this.props)
+    //put into sample data
+    this.addingSampleData()
+  }
+
+  addingSampleData = () => {
+    saveDeckTitle('React');
+    console.log("first save deck title react")
+    this.props.boundNewDeck('React');
+    console.log("updating redux store - react deck")
+
+    addCardToDeck('React', {
+        question: 'What is React?',
+        answer: 'A library for managing user interfaces'
+    })
+    console.log("adding card to react")
+
+    addCardToDeck('React', {
+      question: 'Where do you make Ajax requests in React?',
+      answer: 'The componentDidMount lifecycle event'
+    })
+
+    saveDeckTitle('JavaScript');
+    this.props.boundNewDeck('JavaScript');
+    addCardToDeck('JavaScript', {
+      question: 'What is a closure?',
+      answer: 'The combination of a function and the lexical environment within which that function was declared.'
+    })
+
+    getDeck('React');
   }
 
   submit = () => {
     saveDeckTitle(this.state.title)
     this.props.boundNewDeck(this.state.title)
-    this.props.boundSubmitDeck()
   }
 
   render(){
@@ -53,8 +68,7 @@ function mapStateToProps(decks){
 
 function mapDispatchToProps(dispatch){
   return {
-    boundNewDeck: (title)=>{dispatch(newDeck(title))},
-    boundSubmitDeck: ()=>{dispatch(submitDeck())},
+    boundNewDeck: (title)=>{dispatch(newDeck(title))}
   }
 }
 
