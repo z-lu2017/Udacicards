@@ -10,14 +10,14 @@ import { TabNavigator } from 'react-navigation';
 import Reactotron, { asyncStorage } from 'reactotron-react-native'
 
 const Tabs = TabNavigator({
+  deckList: {
+    screen: DeckList
+  },
   newDeck: {
     screen: NewDeck,
     navigationOptions:{
       title: 'New Deck',
     }
-  },
-  deckList: {
-    screen: DeckList
   },
 });
 

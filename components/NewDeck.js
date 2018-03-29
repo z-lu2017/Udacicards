@@ -10,35 +10,7 @@ class NewDeck extends React.Component{
   }
 
   componentDidMount(){
-    //put into sample data
-    this.addingSampleData()
-  }
 
-  addingSampleData = () => {
-    saveDeckTitle('React');
-    console.log("first save deck title react")
-    this.props.boundNewDeck('React');
-    console.log("updating redux store - react deck")
-
-    addCardToDeck('React', {
-        question: 'What is React?',
-        answer: 'A library for managing user interfaces'
-    })
-    console.log("adding card to react")
-
-    addCardToDeck('React', {
-      question: 'Where do you make Ajax requests in React?',
-      answer: 'The componentDidMount lifecycle event'
-    })
-
-    saveDeckTitle('JavaScript');
-    this.props.boundNewDeck('JavaScript');
-    addCardToDeck('JavaScript', {
-      question: 'What is a closure?',
-      answer: 'The combination of a function and the lexical environment within which that function was declared.'
-    })
-
-    getDeck('React');
   }
 
   submit = () => {

@@ -1,4 +1,4 @@
-import { RECEIVE_DECKS, UPDATE_DECK, FETCH_DECKS, FETCH_DECKS_REQUEST, NEW_DECK } from '../actions';
+import { RECEIVE_DECKS, UPDATE_DECK, NEW_DECK } from '../actions';
 import { combineReducers } from 'redux';
 
 
@@ -6,13 +6,9 @@ function decks(state = [], action){
   switch(action.type){
     case RECEIVE_DECKS:
       const decks = action.decks
-      console.log("inside reducers receiveDecks, did i get it", decks)
       const stateCopy = state
       const returnDecks = stateCopy.concat(decks)
       return returnDecks
-
-    case FETCH_DECKS_REQUEST:
-      return state
 
     case UPDATE_DECK:
       var returnDeck = state

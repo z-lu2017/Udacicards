@@ -1,13 +1,37 @@
 import { AsyncStorage } from 'react-native';
 
+//putting sample data
+export function initialize(){
+  console.log("inside initialize called")
+  return AsyncStorage.setItem('React', JSON.stringify([
+    {
+        question: 'What is React?',
+        answer: 'A library for managing user interfaces'
+    },
+    {
+      question: 'Where do you make Ajax requests in React?',
+      answer: 'The componentDidMount lifecycle event'
+    }
+  ])
+).then(()=>{
+  console.log("before second setitem")
+  AsyncStorage.setItem('JavaScript', JSON.stringify([{
+    question: 'What is a closure?',
+    answer: 'The combination of a function and the lexical environment within which that function was declared.'
+  }]))
+})
+}
+
 //get all decks
-export function getDecks(){
-  var returnDecks = []
-  console.log("before 1 async")
-  AsyncStorage.getAllKeys((err, keys) =>{
-    console.log("after all keys get", keys)
-    AsyncStorage.multiGet(keys)
+export function getDecks(callback){
+  console.log("GET DECKS CALLED")
+  return AsyncStorage.getAllKeys((err, keys) => {
+    console.log("inside get all keys", err, keys)
+    AsyncStorage.multiGet(keys,(err, results) => {
+      console.log("results", results)
+      callback(results)
     })
+  })
 }
 
 //get a single deck
@@ -15,7 +39,6 @@ export function getDeck(id){
   var deck = {}
   AsyncStorage.getItem(id).then((results)=>{
     const data = JSON.parse(results)
-    console.log("trying get deck, what is results", data)
     deck = data
   })
   return deck
@@ -23,7 +46,7 @@ export function getDeck(id){
 
 //save deck title
 export function saveDeckTitle(title){
-  AsyncStorage.mergeItem(title, JSON.stringify({
+  AsyncStorage.setItem(title, JSON.stringify({
     title: title,
     questions: []
   }))
@@ -31,11 +54,8 @@ export function saveDeckTitle(title){
 
 //add card to deck
 export function addCardToDeck(title, card){
-  console.log("is it triggered?", title)
   return AsyncStorage.getItem(title).then((results)=>{
-    console.log("what are results", results)
     const data = JSON.parse(results)
-    console.log("inside addCardToDeck, what is data", data)
     const newQuestions = data.questions.push(card)
     AsyncStorage.setItem(title, JSON.stringify({
       title: title,
