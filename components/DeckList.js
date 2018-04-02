@@ -26,9 +26,9 @@ class DeckList extends React.Component{
               arr.push({title: key, questions: value})
             }
           })
-          that.setState({list: arr})
           //TODO: update redux store
           that.props.boundReceiveDecks(arr)
+          that.setState({list: arr})
         })
       }
       //keys don't exist
@@ -115,15 +115,18 @@ class DeckList extends React.Component{
     })
   }
 
+  componentWillReceiveProps(nextProps){
+    this.setState({list: nextProps.decks})
+  }
+
   render(){
-    console.log("inside render", this.state.list[0])
     return(
       <View>
         <View>
           {this.state.list.map((deck)=>{
             return (<View key={deck.title}>
                     <Text>{deck.title}</Text>
-                    <Text>{deck.questions.length}</Text>
+                    <Text>{deck.questions.length || 0}</Text>
                   </View>)
           })}
         </View>

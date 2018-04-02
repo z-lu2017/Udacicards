@@ -25,7 +25,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={createStore(reducer, applyMiddleware(thunk))}>
-        <Tabs/>
+        <Tabs />
       </Provider>
     );
   }

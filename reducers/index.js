@@ -23,10 +23,8 @@ function decks(state = [], action){
       const title = action.title
       var stateCopy2 = state
       stateCopy2.push({
-        title: {
-          title: title,
-          questions: []
-        }
+        title: title,
+        questions: []
       })
       return stateCopy2
 

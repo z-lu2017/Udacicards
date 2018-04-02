@@ -10,7 +10,6 @@ class NewDeck extends React.Component{
   }
 
   componentDidMount(){
-
   }
 
   submit = () => {
@@ -21,6 +20,7 @@ class NewDeck extends React.Component{
       questions: []
     })).then(()=>{
       that.props.boundNewDeck(title)
+      that.props.navigation.navigate('deckList', {date: new Date()})
     })
   }
 
