@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-import { saveDeckTitle, addCardToDeck, getDeck } from '../api';
+import { AsyncStorage } from 'react-native';
 import { newDeck } from '../actions';
 
 class NewDeck extends React.Component{
@@ -14,8 +14,14 @@ class NewDeck extends React.Component{
   }
 
   submit = () => {
-    saveDeckTitle(this.state.title)
-    this.props.boundNewDeck(this.state.title)
+    var title = this.state.title
+    var that = this
+    AsyncStorage.setItem(title, JSON.stringify({
+      title: title,
+      questions: []
+    })).then(()=>{
+      that.props.boundNewDeck(title)
+    })
   }
 
   render(){

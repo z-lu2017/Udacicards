@@ -12,18 +12,19 @@ class DeckList extends React.Component{
   componentDidMount(){
     var that = this
     //put into sample data
-    AsyncStorage.getAllKeys().then((err, keys)=> {
+    AsyncStorage.getAllKeys().then((keys)=> {
       //keys exist in storage
-      if (typeof keys !== 'undefined'){
+      if (typeof keys !== 'undefined' && keys.length >0){
         //grab all decks
         AsyncStorage.multiGet(keys, (err, stores)=>{
-          console.log("getting decks", stores)
           //stores are an array of key-value pair
           var arr = []
           stores.map((result, i, store)=>{
             let key = store[i][0]
-            let value = store[i][1]
-            arr.push({title: key, questions: value})
+            let value = JSON.parse(store[i][1])
+            if (key){
+              arr.push({title: key, questions: value})
+            }
           })
           that.setState({list: arr})
           //TODO: update redux store
@@ -115,6 +116,7 @@ class DeckList extends React.Component{
   }
 
   render(){
+    console.log("inside render", this.state.list[0])
     return(
       <View>
         <View>
