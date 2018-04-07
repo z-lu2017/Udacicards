@@ -29,9 +29,9 @@ class NewDeck extends React.Component{
     return(
       <View>
         <View>
-          <Text>Please enter your deck name:</Text>
-          <TextInput editable={true} onChangeText={ (text) => {that.setState({title: text})}} placeholder='Enter Title Name here'/>
-          <TouchableOpacity onPress={()=>{that.submit()}}><Text>Submit</Text></TouchableOpacity>
+          <Text style={styles.prompt}>Please enter your deck name:</Text>
+          <TextInput editable={true} onChangeText={ (text) => {that.setState({title: text})}} placeholder='Enter Title Name here' style={styles.input}/>
+          <TouchableOpacity onPress={()=>{that.submit()}} style={styles.submitButton}><Text style={styles.buttonText}>Submit</Text></TouchableOpacity>
         </View>
       </View>
   )
@@ -49,6 +49,24 @@ function mapDispatchToProps(dispatch){
     boundNewDeck: (title)=>{dispatch(newDeck(title))}
   }
 }
+
+const styles = StyleSheet.create({
+  prompt: {
+    fontSize: 20,
+    fontWeight: 'normal',
+    paddingBottom: 10,
+  },
+  input:{
+    paddingBottom: 10,
+  },
+  submitButton:{
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+  },
+  buttonText:{
+    fontSize: 18,
+  }
+})
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewDeck)

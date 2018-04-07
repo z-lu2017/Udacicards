@@ -9,6 +9,12 @@ class DeckList extends React.Component{
     list: []
   }
 
+  // componentWillMount(){
+  //   //clear during testing
+  //   console.log("clearing")
+  //   AsyncStorage.clear();
+  // }
+
   componentDidMount(){
     var that = this
     //put into sample data
@@ -124,9 +130,9 @@ class DeckList extends React.Component{
       <View>
         <View>
           {this.state.list.map((deck)=>{
-            return (<View key={deck.title}>
-                    <Text>{deck.title}</Text>
-                    <Text>{deck.questions.length || 0}</Text>
+            return (<View key={deck.title} style={styles.container}>
+                    <Text style={styles.title}>{deck.title}</Text>
+                    <Text style={styles.deckCount}> deck count: {deck.questions.length || 0}</Text>
                   </View>)
           })}
         </View>
@@ -146,5 +152,27 @@ function mapDispatchToProps(dispatch){
     boundReceiveDecks: (decks)=>{dispatch(receiveDecks(decks))}
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    borderRadius: 5,
+    borderWidth: 0.5,
+    paddingLeft: 20,
+    paddingRight: 20,
+    alignItems: 'center',
+  },
+  title:{
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'blue',
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  deckCount:{
+    fontSize: 15,
+    color: 'black',
+    paddingBottom: 20,
+  },
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeckList)
