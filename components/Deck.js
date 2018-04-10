@@ -15,8 +15,8 @@ class Deck extends React.Component{
     this.props.navigation.navigate('Quiz', {deck});
   }
 
-  addCard = () => {
-    console.log("adding a card! start add card component")
+  addCard = (deck) => {
+    this.props.navigation.navigate('NewCard', {deck});
   }
 
   render(){
@@ -33,7 +33,7 @@ class Deck extends React.Component{
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={()=>{this.startQuiz(this.state.deck)}}><Text style={styles.buttonText}>Start Quiz</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={this.addCard}><Text style={styles.buttonText}>Add a new question</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={()=>{this.addCard(this.state.deck)}}><Text style={styles.buttonText}>Add a new question</Text></TouchableOpacity>
         </View>
       </View>
   )

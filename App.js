@@ -4,6 +4,7 @@ import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
 import Deck from './components/Deck';
 import Quiz from './components/Quiz';
+import NewCard from './components/NewCard';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
@@ -33,6 +34,9 @@ const MainNavigator = StackNavigator(
     },
     Quiz:{
       screen: Quiz,
+    },
+    NewCard:{
+      screen: NewCard,
     }
   },
   {

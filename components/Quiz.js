@@ -10,12 +10,14 @@ class Quiz extends React.Component{
     correct: false,
     hideComment: true,
     correctCount: 0,
+    cardsLeft: 0,
   }
 
   componentDidMount(){
     this.setState({
       deck: this.props.navigation.state.params.deck,
-      card: this.props.navigation.state.params.deck.questions[0]
+      card: this.props.navigation.state.params.deck.questions[0],
+      cardsLeft: this.props.navigation.state.params.deck.questions.length,
     })
   }
 
@@ -26,7 +28,7 @@ class Quiz extends React.Component{
   }
 
   correct = () => {
-    setTimeout(() => {this.setState({hideComment: true})}, 1000)
+    setTimeout(() => {this.setState({hideComment: true})}, 5000)
     var index;
     for (var i=0; i< this.state.deck.questions.length; i++){
       if (this.state.deck.questions[i].answer === this.state.card.answer){
@@ -47,7 +49,8 @@ class Quiz extends React.Component{
       this.setState({
         hideComment: false,
         correct: true,
-        correctCount: updateCorrectCount
+        correctCount: updateCorrectCount,
+        cardsLeft: 0,
       })
     }
     else{
@@ -57,13 +60,14 @@ class Quiz extends React.Component{
         card: newCard,
         hideComment: false,
         viewAnswer: false,
-        correctCount: updateCorrectCount
+        correctCount: updateCorrectCount,
+        cardsLeft: this.state.cardsLeft - 1,
       })
     }
   }
 
   wrong = () =>{
-    setTimeout(() => {this.setState({hideComment: true})}, 1000)
+    setTimeout(() => {this.setState({hideComment: true})}, 5000)
     var index;
     for (var i=0; i< this.state.deck.questions.length; i++){
       if (this.state.deck.questions[i].answer === this.state.card.answer){
@@ -83,6 +87,7 @@ class Quiz extends React.Component{
       this.setState({
         hideComment: false,
         correct: false,
+        cardsLeft: 0,
       })
     }
     else{
@@ -92,6 +97,7 @@ class Quiz extends React.Component{
         card: newCard,
         hideComment: false,
         viewAnswer: false,
+        cardsLeft: this.state.cardsLeft - 1,
       })
     }
   }
@@ -107,8 +113,8 @@ class Quiz extends React.Component{
           this.state.hideComment
           ? null
           : ( this.state.correct
-            ? <View><Text>Good Job!</Text></View>
-            : <View><Text>Need to spend more time studying!</Text></View>
+            ? <View><Text>Good Job!</Text><Text>{this.state.cardsLeft} cards left</Text></View>
+            : <View><Text>Need to spend more time studying!</Text><Text>{this.state.cardsLeft} cards left</Text></View>
           )
         }
         <View>
