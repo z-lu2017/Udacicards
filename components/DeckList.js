@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { receiveDecks } from '../actions';
 import { AsyncStorage } from 'react-native';
@@ -125,15 +125,25 @@ class DeckList extends React.Component{
     this.setState({list: nextProps.decks})
   }
 
+  handleClick = (deck) => {
+    this.props.navigation.navigate('Deck', {deck});
+  }
+
   render(){
     return(
       <View>
         <View>
           {this.state.list.map((deck)=>{
-            return (<View key={deck.title} style={styles.container}>
+            return (
+              <View key={deck.title}>
+                <TouchableWithoutFeedback onPress={()=>{this.handleClick(deck)}}>
+                  <View style={styles.container}>
                     <Text style={styles.title}>{deck.title}</Text>
                     <Text style={styles.deckCount}> deck count: {deck.questions.length || 0}</Text>
-                  </View>)
+                  </View>
+                </TouchableWithoutFeedback>
+              </View>
+            )
           })}
         </View>
       </View>
