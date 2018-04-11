@@ -10,8 +10,7 @@ class DeckList extends React.Component{
   }
 
   // componentWillMount(){
-  //   //clear during testing
-  //   console.log("clearing")
+  //   clear for testing
   //   AsyncStorage.clear();
   // }
 
@@ -34,7 +33,7 @@ class DeckList extends React.Component{
           })
           //TODO: update redux store
           that.props.boundReceiveDecks(arr)
-          that.setState({list: arr})
+          that.setState({list: that.props.decks})
         })
       }
       //keys don't exist
@@ -121,19 +120,26 @@ class DeckList extends React.Component{
     })
   }
 
-  componentWillReceiveProps(nextProps){
-    this.setState({list: nextProps.decks})
-  }
-
   handleClick = (deck) => {
     this.props.navigation.navigate('Deck', {deck});
   }
 
   render(){
+    //deduplicate deck list before rendering
+    var renderArray = this.state.list
+    if (renderArray.length > 0 ){
+      for (var i=0; i<renderArray.length; i++){
+        for (var j=1; j<renderArray.length; j++){
+          if (renderArray[i].title === renderArray[j].title && i !== j ){
+            renderArray.splice(j, 1)
+          }
+        }
+      }
+    }
     return(
       <View>
         <View>
-          {this.state.list.map((deck)=>{
+          {renderArray.map((deck)=>{
             return (
               <View key={deck.title}>
                 <TouchableWithoutFeedback onPress={()=>{this.handleClick(deck)}}>

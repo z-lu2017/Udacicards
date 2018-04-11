@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback, Alert, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { AsyncStorage } from 'react-native';
+import { newCard } from '../actions';
 
 class NewCard extends React.Component{
   state={
@@ -15,23 +16,17 @@ class NewCard extends React.Component{
   }
 
   submit = () => {
+    var that = this;
     AsyncStorage.getItem(this.state.deck.title, (err, result) => {
-      console.log("what did i get", result)
       var oldArray = JSON.parse(result)
-      console.log("what did i get after parse", oldArray)
-      console.log("before push", this.state.question, this.state.answer)
       let delta = {
         question: this.state.question,
         answer: this.state.answer,
       }
-      var newArray = oldArray.push(delta)
-      console.log("what is new array", newArray)
-      AsyncStorage.setItem(this.state.deck.title, JSON.stringify(newArray), () => {
-        AsyncStorage.getItem(this.state.deck.title, (err, result) => {
-          console.log("after setting see what i get", result)
-        })
-        //TODO: update Redux store
-        //TODO: update rendering
+      oldArray.push(delta)
+      AsyncStorage.setItem(this.state.deck.title, JSON.stringify(oldArray), () => {
+        that.props.boundNewCard(this.state.deck.title, delta)
+        that.props.navigation.navigate('Home')
       })
     })
   }
@@ -61,6 +56,12 @@ function mapStateToProps(decks){
   }
 }
 
+function mapDispatchToProps(dispatch){
+  return {
+    boundNewCard: (title, card)=>{dispatch(newCard(title, card))}
+  }
+}
+
 const styles = StyleSheet.create({
   container:{
     flex: 1,
@@ -73,4 +74,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default connect(mapStateToProps)(NewCard)
+export default connect(mapStateToProps, mapDispatchToProps)(NewCard)

@@ -1,4 +1,4 @@
-import { RECEIVE_DECKS, UPDATE_DECK, NEW_DECK } from '../actions';
+import { RECEIVE_DECKS, NEW_CARD, NEW_DECK } from '../actions';
 import { combineReducers } from 'redux';
 
 
@@ -10,11 +10,13 @@ function decks(state = [], action){
       const returnDecks = stateCopy.concat(decks)
       return returnDecks
 
-    case UPDATE_DECK:
+    case NEW_CARD:
       var returnDeck = state
-      for (var key in returnDeck){
-        if (key === action.title){
-          returnDeck[key].questions.push(action.card)
+      const title2 = action.title
+      const card = action.card
+      for (var i=0; i<returnDeck.length; i++){
+        if (returnDeck[i].title === title2){
+          returnDeck[i].questions.push(card)
         }
       }
       return returnDeck

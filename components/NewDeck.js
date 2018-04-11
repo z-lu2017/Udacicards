@@ -9,18 +9,12 @@ class NewDeck extends React.Component{
     title: ''
   }
 
-  componentDidMount(){
-  }
-
   submit = () => {
     var title = this.state.title
     var that = this
-    AsyncStorage.setItem(title, JSON.stringify({
-      title: title,
-      questions: []
-    })).then(()=>{
+    AsyncStorage.setItem(title, JSON.stringify([])).then(()=>{
       that.props.boundNewDeck(title)
-      that.props.navigation.navigate('deckList', {date: new Date()})
+      that.props.navigation.navigate('deckList', {newDecks: that.props.decks})
     })
   }
 
