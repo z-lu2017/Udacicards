@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback, Alert } from 'react-native';
 import { connect } from 'react-redux';
+import { Octicons, Entypo } from '@expo/vector-icons';
 
 class Quiz extends React.Component{
   state={
@@ -108,24 +109,26 @@ class Quiz extends React.Component{
     }
     return(
       <View style={styles.container}>
-        {this.state.viewAnswer ? <View><View><Text>Answer: {this.state.card.answer}</Text></View><View><TouchableOpacity onPress={this.toggle}><Text>Go back to question</Text></TouchableOpacity></View></View> : <View><View><Text>Question: {this.state.card.question}</Text></View><View><TouchableOpacity onPress={this.toggle}><Text>View Answer</Text></TouchableOpacity></View></View>}
         {
           this.state.hideComment
           ? null
           : ( this.state.correct
-            ? <View><Text>Good Job!</Text><Text>{this.state.cardsLeft} cards left</Text></View>
-            : <View><Text>Need to spend more time studying!</Text><Text>{this.state.cardsLeft} cards left</Text></View>
+            ? <View style={styles.commentsContainer}><Octicons name='smiley' color='green' size={120} /><Text style={styles.correctComment}>Good Job!</Text><Text style={styles.cardsLeftComment}>{this.state.cardsLeft} card(s) left</Text></View>
+            : <View style={styles.commentsContainer}><Entypo name='emoji-sad' color='red' size={150} style={styles.sad} /><Text style={styles.wrongComment}>Need to spend more time studying!</Text><Text style={styles.cardsLeftComment}>{this.state.cardsLeft} card(s) left</Text></View>
           )
         }
-        <View>
-          <TouchableOpacity onPress={this.correct}>
-            <Text>Correct! </Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={this.wrong}>
-            <Text>Wrong! </Text>
-          </TouchableOpacity>
+        {this.state.viewAnswer ? <View style={styles.QAcontainer}><View><Text style={styles.answer}>Answer: {this.state.card.answer}</Text></View><View style={styles.toggleButtonContainer}><TouchableOpacity onPress={this.toggle} style={styles.toggleButton}><Text style={styles.toggleButtonText}>Go back to question</Text></TouchableOpacity></View></View> : <View style={styles.QAcontainer}><View><Text style={styles.question}>Question: {this.state.card.question}</Text></View><View style={styles.toggleButtonContainer}><TouchableOpacity onPress={this.toggle} style={styles.toggleButton}><Text style={styles.toggleButtonText}>View Answer</Text></TouchableOpacity></View></View>}
+        <View style={styles.correctWrongButtonContainer}>
+          <View>
+            <TouchableOpacity onPress={this.correct} style={styles.correctButton}>
+              <Text style={styles.correctButtonText}>Correct! </Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={this.wrong} style={styles.wrongButton}>
+              <Text style={styles.wrongButtonText}>Wrong! </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
   )
@@ -147,31 +150,77 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
   },
-  buttonContainer:{
-    flexDirection: 'row',
+  QAcontainer:{
+    paddingTop: 10,
+    paddingBottom: 10,
   },
-  title:{
-    fontSize: 35,
+  question: {
+    fontSize: 25,
     fontWeight: 'bold',
-    color: 'blue',
+    color: '#1a53ff',
+  },
+  answer:{
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: '#1a53ff',
+  },
+  toggleButtonContainer:{
     paddingTop: 20,
     paddingBottom: 20,
   },
-  deckCount:{
-    fontSize: 20,
-    color: 'black',
-    paddingBottom: 20,
+  toggleButtonText: {
+    fontSize: 15,
+    fontWeight: 'normal',
   },
-  button:{
+  toggleButton:{
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderRadius: 12,
+    paddingLeft: 50,
+    paddingRight: 50,
+    borderRadius: 10,
   },
-  buttonText:{
+  correctButton:{
+    paddingLeft: 40,
+    paddingRight: 40,
+  },
+  correctButtonText:{
     fontSize: 18,
-  }
+    fontWeight: 'bold',
+    color: '#00cc00',
+  },
+  wrongButton:{
+    paddingLeft: 40,
+    paddingRight: 40,
+  },
+  wrongButtonText:{
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#e60000',
+  },
+  correctWrongButtonContainer:{
+    flexDirection: 'row',
+  },
+  correctComment:{
+    fontSize: 20,
+    color: '#00cc00',
+    fontWeight: 'bold',
+  },
+  wrongComment:{
+    fontSize: 20,
+    color: '#e60000',
+    fontWeight: 'bold',
+  },
+  cardsLeftComment:{
+    fontSize: 18,
+    fontWeight: 'normal',
+    color: 'black',
+  },
+  commentsContainer:{
+    paddingBottom: 50,
+  },
+  sad: {
+    paddingLeft: 30,
+  },
 })
 
 export default connect(mapStateToProps)(Quiz)

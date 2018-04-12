@@ -39,11 +39,12 @@ class NewCard extends React.Component{
     return(
       <View style={styles.container}>
         <View>
+          <Text style={styles.prompt}>Please enter question and answer below:</Text>
           <TextInput editable={true} onChangeText={ (text) => {that.setState({question: text})}} placeholder='Enter question here' style={styles.input}/>
           <TextInput editable={true} onChangeText={ (text) => {that.setState({answer: text})}} placeholder='Enter answer here' style={styles.input}/>
         </View>
         <View>
-          <TouchableOpacity onPress={this.submit}><Text>Submit</Text></TouchableOpacity>
+          <TouchableOpacity onPress={this.submit} style={styles.submitButton}><Text style={styles.buttonText}>Submit</Text></TouchableOpacity>
         </View>
       </View>
   )
@@ -65,13 +66,25 @@ function mapDispatchToProps(dispatch){
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 30,
     alignItems: 'stretch',
   },
   input:{
     paddingBottom: 10,
     alignSelf: "stretch",
   },
+  prompt: {
+    fontSize: 20,
+    fontWeight: 'normal',
+    paddingBottom: 15,
+  },
+  submitButton:{
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+  },
+  buttonText:{
+    fontSize: 18,
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewCard)
