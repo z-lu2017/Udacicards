@@ -223,3 +223,4 @@ If this causes problems for you, you may want to try changing your terminal's co
 ## Code used hide header - https://stackoverflow.com/questions/44701245/hide-header-in-stack-navigator-react-navigation
 ## Code used to turn decimal to percentage - https://stackoverflow.com/questions/45163256/how-to-format-numbers-as-percentage-values-in-javascript
 ## Fixing android statusbar overlap code - https://github.com/react-navigation/react-navigation/issues/1478
+### This App is designed and tested for Android platform only.

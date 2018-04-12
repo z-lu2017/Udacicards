@@ -14,7 +14,7 @@ class NewDeck extends React.Component{
     var that = this
     AsyncStorage.setItem(title, JSON.stringify([])).then(()=>{
       that.props.boundNewDeck(title)
-      that.props.navigation.navigate('deckList', {newDecks: that.props.decks})
+      that.props.navigation.navigate('Deck', {deck: {title: title, questions: []}})
     })
   }
 

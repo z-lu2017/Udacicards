@@ -45,18 +45,14 @@ class Quiz extends React.Component{
         'You have reached the end of your deck!',
         'Your score is ' + correctRatio,
         [
-          {text: 'OK'},
-        ]
+          {text: 'Restart Quiz', onPress: () => this.setState({hideComment: false, correct: true, correctCount: updateCorrectCount, cardsLeft: this.state.deck.questions.length, card: this.props.navigation.state.params.deck.questions[0],})},
+          {text: 'Go back to deck', onPress: () => this.props.navigation.navigate('Deck', {deck: this.state.deck}) },
+        ],
+        { cancelable: false }
       )
       clearLocalNotification()
         .then(setLocalNotification)
-      this.setState({
-        hideComment: false,
-        correct: true,
-        correctCount: updateCorrectCount,
-        cardsLeft: 0,
-      })
-      this.props.navigation.navigate('Home');
+
     }
     else{
       var newCard = this.state.deck.questions[index + 1]
@@ -86,8 +82,10 @@ class Quiz extends React.Component{
         'You have reached the end of your deck!',
         'Your score is ' + correctRatio2,
         [
-          {text: 'OK'},
-        ]
+          {text: 'Restart Quiz', onPress: () => this.setState({hideComment: false, correct: true, correctCount: updateCorrectCount, cardsLeft: this.state.deck.questions.length, card: this.props.navigation.state.params.deck.questions[0],})},
+          {text: 'Go back to deck', onPress: () => this.props.navigation.navigate('Deck', {deck: this.state.deck}) },
+        ],
+        { cancelable: false }
       )
       clearLocalNotification()
         .then(setLocalNotification)
