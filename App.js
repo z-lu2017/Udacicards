@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native';
 import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
 import Deck from './components/Deck';
@@ -28,22 +28,34 @@ const MainNavigator = StackNavigator(
   {
     Home: {
       screen: Tabs,
+      navigationOptions: ({ navigation }) => ({
+        title: 'Home'
+      })
     },
     Deck:{
       screen: Deck,
     },
     Quiz:{
       screen: Quiz,
+      navigationOptions: ({ navigation }) => ({
+        title: 'Quiz',
+      })
     },
     NewCard:{
       screen: NewCard,
+      navigationOptions: ({ navigation }) => {
+        title: 'Add Card'
+      }
     }
   },
   {
-  headerMode: 'none',
-  navigationOptions: {
-    headerVisible: false,
-  }
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    },
+    cardStyle: {
+      paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
+    }
  }
 )
 
