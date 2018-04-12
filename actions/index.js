@@ -1,5 +1,3 @@
-import { getDecks } from '../api'
-
 export const RECEIVE_DECKS = 'RECEIVE_DECKS'
 export const NEW_CARD = 'NEW_CARD'
 export const NEW_DECK = 'NEW_DECK'

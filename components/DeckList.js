@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback, Ale
 import { connect } from 'react-redux';
 import { receiveDecks } from '../actions';
 import { AsyncStorage } from 'react-native';
+const NOTIFICATION_KEY = 'Udacaicards:notifications'
 
 class DeckList extends React.Component{
   state={
@@ -10,16 +11,22 @@ class DeckList extends React.Component{
   }
 
   // componentWillMount(){
-  //   clear for testing
+  //   // clear for testing
   //   AsyncStorage.clear();
   // }
 
   componentDidMount(){
     var that = this
-    //put into sample data
+    //check if keys exist in asyncstorage, if not use sample data
     AsyncStorage.getAllKeys().then((keys)=> {
       //keys exist in storage
       if (typeof keys !== 'undefined' && keys.length >0){
+        //remove notification key
+        for (var i=0; i<keys.length; i++){
+          if (keys[i] === NOTIFICATION_KEY){
+            keys.splice(i, 1)
+          }
+        }
         //grab all decks
         AsyncStorage.multiGet(keys, (err, stores)=>{
           //stores are an array of key-value pair
@@ -31,7 +38,7 @@ class DeckList extends React.Component{
               arr.push({title: key, questions: value})
             }
           })
-          //TODO: update redux store
+          //update redux store
           that.props.boundReceiveDecks(arr)
           that.setState({list: that.props.decks})
         })

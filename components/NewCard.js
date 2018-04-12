@@ -66,7 +66,7 @@ function mapDispatchToProps(dispatch){
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    paddingTop: 30,
+    paddingTop: 20,
     alignItems: 'stretch',
   },
   input:{

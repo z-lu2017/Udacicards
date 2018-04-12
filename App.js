@@ -10,7 +10,8 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import { TabNavigator, StackNavigator } from 'react-navigation';
-import Reactotron, { asyncStorage } from 'reactotron-react-native'
+import Reactotron, { asyncStorage } from 'reactotron-react-native';
+import { setLocalNotification } from './helpers';
 
 const Tabs = TabNavigator({
   deckList: {
@@ -60,6 +61,10 @@ const MainNavigator = StackNavigator(
 )
 
 export default class App extends React.Component {
+  componentDidMount(){
+    setLocalNotification()
+  }
+
   render() {
     return (
       <Provider store={createStore(reducer, applyMiddleware(thunk))}>

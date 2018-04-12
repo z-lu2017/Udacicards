@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Octicons, Entypo } from '@expo/vector-icons';
+import { clearLocalNotification, setLocalNotification } from '../helpers';
 
 class Quiz extends React.Component{
   state={
@@ -47,12 +48,15 @@ class Quiz extends React.Component{
           {text: 'OK'},
         ]
       )
+      clearLocalNotification()
+        .then(setLocalNotification)
       this.setState({
         hideComment: false,
         correct: true,
         correctCount: updateCorrectCount,
         cardsLeft: 0,
       })
+      this.props.navigation.navigate('Home');
     }
     else{
       var newCard = this.state.deck.questions[index + 1]
@@ -85,11 +89,14 @@ class Quiz extends React.Component{
           {text: 'OK'},
         ]
       )
+      clearLocalNotification()
+        .then(setLocalNotification)
       this.setState({
         hideComment: false,
         correct: false,
         cardsLeft: 0,
       })
+      this.props.navigation.navigate('Home');
     }
     else{
       var newCard = this.state.deck.questions[index + 1]
