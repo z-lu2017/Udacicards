@@ -26,7 +26,7 @@ class NewCard extends React.Component{
       oldArray.push(delta)
       AsyncStorage.setItem(this.state.deck.title, JSON.stringify(oldArray), () => {
         that.props.boundNewCard(this.state.deck.title, delta)
-        that.props.navigation.navigate('Home')
+        that.props.navigation.navigate('Deck', {deck: {title: that.state.deck.title, questions: oldArray}})
       })
     })
   }

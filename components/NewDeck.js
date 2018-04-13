@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { AsyncStorage } from 'react-native';
 import { newDeck } from '../actions';
@@ -12,6 +12,17 @@ class NewDeck extends React.Component{
   submit = () => {
     var title = this.state.title
     var that = this
+    if (title.length === 0) {
+      Alert.alert(
+        'Invalid title!',
+        'Please enter a valid title ',
+        [
+          {text: 'OK'},
+        ],
+        { cancelable: false }
+      )
+    return
+    }
     AsyncStorage.setItem(title, JSON.stringify([])).then(()=>{
       that.props.boundNewDeck(title)
       that.props.navigation.navigate('Deck', {deck: {title: title, questions: []}})

@@ -23,6 +23,10 @@ class Deck extends React.Component{
     if( Object.keys(this.state.deck).length === 0 ){
       return null
     }
+    var disabled = true
+    if (this.state.deck.questions.length > 0){
+      disabled = false
+    }
     return(
       <View style={styles.container}>
         <View>
@@ -32,7 +36,7 @@ class Deck extends React.Component{
           <Text style={styles.deckCount}>{this.state.deck ? this.state.deck.questions.length : 0} cards</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={()=>{this.startQuiz(this.state.deck)}}><Text style={styles.buttonText}>Start Quiz</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={()=>{this.startQuiz(this.state.deck)}} disabled={disabled}><Text style={styles.buttonText}>Start Quiz</Text></TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={()=>{this.addCard(this.state.deck)}}><Text style={styles.buttonText}>Add a new question</Text></TouchableOpacity>
         </View>
       </View>
